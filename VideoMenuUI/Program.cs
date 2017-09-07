@@ -12,6 +12,7 @@ namespace VideoMenuUI
 
         static void Main()
         {
+            //Making a new Video
             VideoBO v = new VideoBO();
 
 
