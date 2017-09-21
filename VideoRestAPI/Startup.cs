@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using VideoMenuBLL;
+using VideoMenuBLL.BusinessObjects;
 
 namespace VideoRestAPI
 {
@@ -32,6 +34,37 @@ namespace VideoRestAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                var facade = new BLLFacade();
+                var vid = facade.VideoService.Create(new VideoBO()
+                {
+                    Title = "Development Video Test"
+                });
+                facade.VideoService.Create(new VideoBO()
+                {
+                    Title = "Development Video Test 2"
+                });
+                facade.VideoService.Create(new VideoBO()
+                {
+                    Title = "Development Video Test 3"
+                });
+
+                facade.GenreService.Create(new GenreBO()
+                {
+                    GenreTitle = "Rock",
+                    Video = vid
+                });
+                facade.GenreService.Create(new GenreBO()
+                {
+                    GenreTitle = "Blues"
+                });
+                facade.GenreService.Create(new GenreBO()
+                {
+                    GenreTitle = "Jazz"
+                });
+                facade.GenreService.Create(new GenreBO()
+                {
+                    GenreTitle = "Bossa Nova"
+                });
             }
 
             app.UseMvc();

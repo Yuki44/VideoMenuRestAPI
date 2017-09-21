@@ -4,18 +4,19 @@ using VideoMenuDAL.Entities;
 
 namespace VideoMenuDAL.Context
 {
-    class InMemoryContext : DbContext
+    class VideoAppContext : DbContext
     {
-        static DbContextOptions<InMemoryContext> options =
-            new DbContextOptionsBuilder<InMemoryContext>()
+        static DbContextOptions<VideoAppContext> options =
+            new DbContextOptionsBuilder<VideoAppContext>()
                 .UseInMemoryDatabase("TheDB").Options;
         //Options we want in memory
 
-        public InMemoryContext() : base(options)
+        public VideoAppContext() : base(options)
         {
 
         }
 
         public DbSet<Video> videos { get; set; }
+        public DbSet<Genre> Genres { get; set; }
     }
 }

@@ -4,15 +4,17 @@ using VideoMenuDAL.Repositories;
 
 namespace VideoMenuDAL.UOW
 {
-    public class UnitOfWorkMem : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         public IVideoRepository VideoRepository { get; internal set; }
-        private InMemoryContext context;
+        public IGenreRepository GenreRepository { get; internal set; }
+        private VideoAppContext context;
 
-        public UnitOfWorkMem()
+        public UnitOfWork()
         {
-            context = new InMemoryContext();
+            context = new VideoAppContext();
             VideoRepository = new VideoRepositoryEFMemory(context);
+            GenreRepository = new GenreRepository(context);
         }
 
         public int Complete()
