@@ -13,7 +13,7 @@ namespace VideoMenuBLL.Converters
             {
                 Id = genre.Id,
                 GenreTitle = genre.GenreTitle,
-                Video = new VideoConverter().Convert(genre.Video)
+                VideoId = genre.VideoId
             };
         }
 
@@ -24,7 +24,8 @@ namespace VideoMenuBLL.Converters
             {
                 Id = genre.Id,
                 GenreTitle = genre.GenreTitle,
-                Video = new VideoConverter().Convert(genre.Video)
+                Video = new VideoConverter().Convert(genre.Video),
+                VideoId = genre.VideoId
             };
         }
     }

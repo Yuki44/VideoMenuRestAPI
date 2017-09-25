@@ -5,6 +5,7 @@ namespace VideoMenuDAL.Entities
     {
         public int Id { get; set; }
         public string GenreTitle { get; set; }
+        public int VideoId { get; set; }
         public Video Video { get; set; }
     }
 }

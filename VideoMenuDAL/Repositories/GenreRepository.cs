@@ -17,10 +17,6 @@ namespace VideoMenuDAL.Repositories
         }
         public Genre Create(Genre genre)
         {
-            if (genre.Video != null)
-            {
-                _context.Entry(genre.Video).State = EntityState.Unchanged;
-            }
             _context.Genres.Add(genre);
             return genre;
         }
@@ -39,7 +35,7 @@ namespace VideoMenuDAL.Repositories
 
         public List<Genre> GetAll()
         {
-            return _context.Genres.Include(g => g.Video).ToList();
+            return _context.Genres.ToList();
         }
     }
 }

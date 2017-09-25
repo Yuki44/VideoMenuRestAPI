@@ -41,6 +41,7 @@ namespace VideoMenuBLL.Services
             using (var uow = _facade.UnitOfWork)
             {
                 var genreEntity = uow.GenreRepository.Get(Id);
+                genreEntity.Video = uow.VideoRepository.Get(genreEntity.VideoId);
                 return conv.Convert(genreEntity);
             }
         }
@@ -63,7 +64,10 @@ namespace VideoMenuBLL.Services
                     throw new InvalidOperationException("Order not found");
                 }
                 genreEntity.GenreTitle = genre.GenreTitle;
+                genreEntity.VideoId = genre.VideoId;
                 uow.Complete();
+                // BLL choice
+                genreEntity.Video = uow.VideoRepository.Get(genreEntity.VideoId);
                 return conv.Convert(genreEntity);
             }
         }
