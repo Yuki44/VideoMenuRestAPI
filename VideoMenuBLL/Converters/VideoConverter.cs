@@ -12,7 +12,8 @@ namespace VideoMenuBLL.Converters
             return new Video()
             {
                 Id = vid.Id,
-                Title = vid.Title
+                Title = vid.Title,
+                GenreId = vid.Genre != null ? vid.Genre.Id : vid.GenreId
             };
         }
 
@@ -22,7 +23,8 @@ namespace VideoMenuBLL.Converters
             return new VideoBO()
             {
                 Id = vid.Id,
-                Title = vid.Title
+                Title = vid.Title,
+                GenreId = vid.GenreId
             };
         }
     }

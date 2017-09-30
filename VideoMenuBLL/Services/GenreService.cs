@@ -4,12 +4,14 @@ using System.Linq;
 using VideoMenuBLL.BusinessObjects;
 using VideoMenuBLL.Converters;
 using VideoMenuDAL;
+using VideoMenuDAL.Entities;
 
 namespace VideoMenuBLL.Services
 {
     class GenreService : IGenreService
     {
         GenreConverter conv = new GenreConverter();
+        VideoConverter vConv = new VideoConverter();
         private DALFacade _facade;
         public GenreService(DALFacade facade)
         {
@@ -41,8 +43,9 @@ namespace VideoMenuBLL.Services
             using (var uow = _facade.UnitOfWork)
             {
                 var genreEntity = uow.GenreRepository.Get(Id);
-                genreEntity.Video = uow.VideoRepository.Get(genreEntity.VideoId);
-                return conv.Convert(genreEntity);
+                var genreBO = conv.Convert(genreEntity);
+                genreBO.Videos = genreEntity.Videos?.Select(v => vConv.Convert(v)).ToList();
+                return genreBO;
             }
         }
 
@@ -64,10 +67,10 @@ namespace VideoMenuBLL.Services
                     throw new InvalidOperationException("Order not found");
                 }
                 genreEntity.GenreTitle = genre.GenreTitle;
-                genreEntity.VideoId = genre.VideoId;
+                genreEntity.Videos = genre.VideoIds.Select(id => new Video() { Id = id }).ToList();
                 uow.Complete();
                 // BLL choice
-                genreEntity.Video = uow.VideoRepository.Get(genreEntity.VideoId);
+                //genreEntity.Videos = uow.VideoRepository.Get(genreEntity.VideoId);
                 return conv.Convert(genreEntity);
             }
         }

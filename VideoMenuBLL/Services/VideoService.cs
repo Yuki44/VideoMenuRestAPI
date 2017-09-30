@@ -11,6 +11,7 @@ namespace VideoMenuBLL.Services
     class VideoService : IVideoService
     {
         VideoConverter conv = new VideoConverter();
+        GenreConverter gConv = new GenreConverter();
 
         DALFacade facade;
         public VideoService(DALFacade facade)
@@ -42,7 +43,14 @@ namespace VideoMenuBLL.Services
         {
             using (var uow = facade.UnitOfWork)
             {
-                return conv.Convert(uow.VideoRepository.Get(Id));
+                var videoEntity = uow.VideoRepository.Get(Id);
+                var genreEntity = uow.GenreRepository.Get(videoEntity.GenreId);
+                var videoBO = conv.Convert(videoEntity);
+                if (genreEntity != null)
+                {
+                    videoBO.Genre = gConv.Convert(genreEntity);
+                }
+                return videoBO;
             }
 
         }

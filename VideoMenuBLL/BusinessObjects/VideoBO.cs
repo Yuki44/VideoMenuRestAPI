@@ -16,6 +16,9 @@ namespace VideoMenuBLL.BusinessObjects
         [MinLength(2)]
         public string Title { get; set; }
 
+        public int GenreId { get; set; }
+        public GenreBO Genre { get; set; }
+
         #endregion
     }
 

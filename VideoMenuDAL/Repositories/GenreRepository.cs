@@ -30,12 +30,12 @@ namespace VideoMenuDAL.Repositories
 
         public Genre Get(int Id)
         {
-            return _context.Genres.FirstOrDefault(g => g.Id == Id);
+            return _context.Genres.Include(g => g.Videos).FirstOrDefault(g => g.Id == Id);
         }
 
         public List<Genre> GetAll()
         {
-            return _context.Genres.ToList();
+            return _context.Genres.Include(g => g.Videos).ToList();
         }
     }
 }

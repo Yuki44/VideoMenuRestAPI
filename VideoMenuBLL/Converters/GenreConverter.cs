@@ -1,6 +1,7 @@
 ﻿using System;
 using VideoMenuBLL.BusinessObjects;
 using VideoMenuDAL.Entities;
+using System.Linq;
 
 namespace VideoMenuBLL.Converters
 {
@@ -13,7 +14,7 @@ namespace VideoMenuBLL.Converters
             {
                 Id = genre.Id,
                 GenreTitle = genre.GenreTitle,
-                VideoId = genre.VideoId
+                Videos = genre.VideoIds?.Select(id => new Video() { Id = id }).ToList()
             };
         }
 
@@ -24,8 +25,7 @@ namespace VideoMenuBLL.Converters
             {
                 Id = genre.Id,
                 GenreTitle = genre.GenreTitle,
-                Video = new VideoConverter().Convert(genre.Video),
-                VideoId = genre.VideoId
+                VideoIds = genre.Videos?.Select(v => v.Id).ToList()
             };
         }
     }

@@ -13,7 +13,9 @@ namespace VideoMenuDAL.Entities
         // Name of the video
         public string Title { get; set; }
 
-        public List<Genre> Genres { get; set; }
+
+        public int GenreId { get; set; }
+        public Genre Genres { get; set; }
 
         #endregion
     }

@@ -35,36 +35,42 @@ namespace VideoRestAPI
             {
                 app.UseDeveloperExceptionPage();
                 var facade = new BLLFacade();
-                var vid = facade.VideoService.Create(new VideoBO()
-                {
-                    Title = "Development Video Test"
-                });
-                facade.VideoService.Create(new VideoBO()
-                {
-                    Title = "Development Video Test 2"
-                });
-                facade.VideoService.Create(new VideoBO()
-                {
-                    Title = "Development Video Test 3"
-                });
 
-                facade.GenreService.Create(new GenreBO()
+                var genreRock = facade.GenreService.Create(new GenreBO()
                 {
-                    GenreTitle = "Rock",
-                    Video = vid
+                    GenreTitle = "Rock"
                 });
-                facade.GenreService.Create(new GenreBO()
+                var genreBlues = facade.GenreService.Create(new GenreBO()
                 {
                     GenreTitle = "Blues"
                 });
-                facade.GenreService.Create(new GenreBO()
+                var genreJazz = facade.GenreService.Create(new GenreBO()
                 {
                     GenreTitle = "Jazz"
                 });
-                facade.GenreService.Create(new GenreBO()
+                var genreBossa = facade.GenreService.Create(new GenreBO()
                 {
                     GenreTitle = "Bossa Nova"
                 });
+
+
+                facade.VideoService.Create(new VideoBO()
+                {
+                    Title = "Development Video Test",
+                    GenreId = genreRock.Id
+                });
+                facade.VideoService.Create(new VideoBO()
+                {
+                    Title = "Development Video Test 2",
+                    GenreId = genreJazz.Id
+                });
+                facade.VideoService.Create(new VideoBO()
+                {
+                    Title = "Development Video Test 3",
+                    GenreId = genreBossa.Id
+                });
+
+
             }
 
             app.UseMvc();
